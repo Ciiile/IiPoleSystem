@@ -18,7 +18,7 @@ namespace iPoleSystemUI
             IIPoleSystem PoleSystem = new IPoleSystem();
             PoleSystem.CreateUserList();
             PoleSystem.CreateTeamList();
-            //PoleSystem.DeleteUnnecessaryStringsFromOpenGym();
+            PoleSystem.DeleteUnnecessaryStringsFromOpenGym();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //system.CreateCheckboxes(); //TESTER

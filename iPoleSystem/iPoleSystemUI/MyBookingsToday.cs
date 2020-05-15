@@ -65,9 +65,6 @@ namespace iPoleSystemUI
             {
                 SW.WriteLine(currentUser.MemberId + "," + now);
             }
-            
-            //throw new NullReferenceException("Fejl ved skriv i OpenGym.csv");
-
         }
 
         private void MyFutureBookingsButton_Click(object sender, EventArgs e)

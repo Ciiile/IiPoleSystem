@@ -147,35 +147,23 @@ namespace iPoleSystemLibrary
         //This method finds and returns the user whose member ID equals the desired ID
         public User FindUserFromID(int userID)
         {
-            User found = AllUsers.Find(u => u.MemberId == userID);
-            if (found != null)
+            try
+            {
+                User found = AllUsers.Find(u => u.MemberId == userID);
                 return found;
-            else
+            }
+            catch
+            {
                 throw new ArgumentException("User could not be found from userID");
+            }
         }
 
         //This method finds and return the user whose LoginStatus is true.
         public User FindUserFromLoginStatus()
         {
-           // User found;
-
-            Console.WriteLine("Find bruger");
             try
             {
-
-                //foreach(User u in AllUsers)
-                //{
-                //    if (u.LoginStatus == true)
-                //    {
-                //        found = u;
-
-                //    }
-                //    return found;
-                //}
-
-
                 User found = AllUsers.Find(u => u.LoginStatus == true);
-                Console.WriteLine(found.Firstname);
                 return found;
             }
             catch
@@ -187,11 +175,15 @@ namespace iPoleSystemLibrary
         //This method finds and returns the class with the desired ID
         public FitnessClass FindClassFromID(int classID)
         {
-            FitnessClass found = AllTeams.Find(c => c.ClassID == classID);
-            if (found != null)
+            try
+            {
+                FitnessClass found = AllTeams.Find(c => c.ClassID == classID);
                 return found;
-            else
+            }
+            catch
+            {
                 throw new ArgumentException("Class could not be found from classID");
+            }
         }
 
         //This method assigns the current date and time, finds all lines in OpenGym.csv

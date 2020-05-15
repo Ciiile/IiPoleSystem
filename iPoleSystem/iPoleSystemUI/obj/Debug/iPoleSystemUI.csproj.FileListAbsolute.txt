@@ -88,7 +88,6 @@ C:\Users\cecil\Desktop\iPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSyst
 C:\Users\cecil\Desktop\iPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSystemUI.pdb
 C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSystemUI.csprojAssemblyReference.cache
 C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSystemUI.BookANewClass.resources
-C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSystemUI.InactivityForm.resources
 C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSystemUI.LoginForm.resources
 C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSystemUI.MyBookingsToday.resources
 C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSystemUI.MyFutureBookings.resources
@@ -96,3 +95,6 @@ C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug
 C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSystemUI.csproj.GenerateResource.cache
 C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSystemUI.exe
 C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\obj\Debug\iPoleSystemUI.pdb
+C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\bin\Debug\iPoleSystemUI.exe.config
+C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\bin\Debug\iPoleSystemUI.exe
+C:\Users\cecil\Documents\GitHub\IiPoleSystem\iPoleSystem\iPoleSystemUI\bin\Debug\iPoleSystemUI.pdb

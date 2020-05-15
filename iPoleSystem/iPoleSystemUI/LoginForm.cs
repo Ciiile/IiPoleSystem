@@ -21,12 +21,10 @@ namespace iPoleSystemUI
 
             PoleSystem = poleSystem;
 
-            //foreach (User u in IPoleSystem.AllUsers)
-            //{
-            //    u.LoginStatus = false;
-            //}
-
-            PoleSystem.DeleteUnnecessaryStringsFromOpenGym();
+            foreach (User u in IPoleSystem.AllUsers)
+            {
+                u.LoginStatus = false;
+            }
         }
 
 
@@ -62,9 +60,7 @@ namespace iPoleSystemUI
                 {
                     if (id == u.MemberId && password == u.Password)
                     {
-                        
                         this.Hide();
-
                         
                         u.LoginStatus = true;
                         LoginStatus = true;

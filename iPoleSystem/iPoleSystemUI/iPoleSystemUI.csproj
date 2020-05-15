@@ -55,9 +55,6 @@
     </Compile>
     <Compile Include="FitnessClass.cs" />
     <Compile Include="IIPoleSystem.cs" />
-    <Compile Include="InactivityForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="IPoleSystem.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -82,9 +79,6 @@
     <Compile Include="User.cs" />
     <EmbeddedResource Include="BookANewClass.resx">
       <DependentUpon>BookANewClass.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InactivityForm.resx">
-      <DependentUpon>InactivityForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
