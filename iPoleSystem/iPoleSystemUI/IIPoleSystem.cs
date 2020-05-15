@@ -12,6 +12,5 @@ namespace iPoleSystemLibrary
         User FindUserFromLoginStatus();
         FitnessClass FindClassFromID(int classID);
         void DeleteUnnecessaryStringsFromOpenGym();
-        void PrintTest();
     }
 }

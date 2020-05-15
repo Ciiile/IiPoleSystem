@@ -191,25 +191,66 @@ namespace iPoleSystemLibrary
         public void DeleteUnnecessaryStringsFromOpenGym()
         {
 
-            Console.WriteLine("Delete in Open Gym file");
-
             DateTime dateAndTimeNow = DateTime.Now;
             int dateNow = dateAndTimeNow.Day;
-            string dateNowString = dateNow.ToString();
-            var file = Directory.GetCurrentDirectory() + @"\OpenGym.csv";
+            //string dateNowString = dateNow.ToString();
 
-            using (TextFieldParser csvParser = new TextFieldParser(file))
+            //var file = Directory.GetCurrentDirectory() + @"\OpenGym.csv";
+            //using (TextFieldParser csvParser = new TextFieldParser(file))
+            //{
+                
+
+            //        //memberIDList.Add(memberID);
+            //        //dateTimeList.Add(dateTimeFile);
+            //}
+
+                
+
+
+            List<string> lines = new List<string>();
+            using(StreamReader reader=new StreamReader("OpenGym.csv"))
             {
-
-                List<String> lines = new List<string>();
                 string line;
-
-                while ((line = csvParser.ReadLine()) != null)
+                while ((line = reader.ReadLine()) != null)
                 {
-                    lines.Add(line);
+                    if (line.Contains(","))
+                    {
+                        string[] fields = line.Split(',');
+
+                        string id = fields[0];
+                        Int32.TryParse(id, out int memberID);
+                        string dateTimeString = fields[1];
+                        DateTime.TryParse(dateTimeString, out DateTime dateTimeFile);
+
+                        if (dateTimeFile.Day == dateNow)
+                        {
+                            line = string.Join("", id, ',', dateTimeString);
+                            lines.Add(line);
+                        }
+                        if(dateTimeFile.Day != dateNow)
+                        {
+                            //line = string.Join(id, ",", dateTimeString);
+                            //lines.Remove(line);
+                        }
+                    }
                 }
-                lines.RemoveAll(l => !(l.Contains(dateNowString)));
             }
+
+            using(StreamWriter writer=new StreamWriter("OpenGym.csv"))
+            {
+                foreach(string line in lines)
+                {
+                    writer.WriteLine(line);
+                }
+            }
+                
+
+                //while ((line = csvParser.ReadLine()) != null)
+                //{
+                //    lines.Add(line);
+                //}
+                //lines.RemoveAll(l => !(l.Contains(dateNowString)));
+            
         }
     }
 }
