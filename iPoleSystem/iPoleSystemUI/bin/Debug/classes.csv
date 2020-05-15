@@ -1,0 +1,7 @@
+id;class;numberOfParticipants;time;date;room;instructor;participantsEnrolled
+1;Pole - Level 1;8;17:00-17:45;24-06-20;1;Sidsel;244;976
+2;Pole - Level 2;8;18:00-18:55;24-06-20;1;Jeanette;342;354
+3;Twerk;16;17:00-17:45;25-06-20;2;Anne;244;785;24
+4;Pole - Level 3;8;19:00-19:55;26-06-20;1;Jeanette;294;24
+5;Flexy;11;18:00-18:45;27-06-20;2;Kristine;1679;342;294;354
+6;PoleFitness;8;18:00-18:45;27-06-20;1;Sidsel;1679;976;785

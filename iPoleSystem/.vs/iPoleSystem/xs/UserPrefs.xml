@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{65FC84C0-447B-42DA-AF99-E7E235F9BC1A}|Default">
+  <MonoDevelop.Ide.ItemProperties.iPoleSystemUI PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="iPoleSystemUI/MyBookingsToday.cs">
+    <Files>
+      <File FileName="iPoleSystemUI/LoginForm.cs" Line="1" Column="1" />
+      <File FileName="iPoleSystemUI/InactivityForm.cs" Line="1" Column="1" />
+      <File FileName="iPoleSystemUI/MyBookingsToday.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="iPoleSystem" expanded="True">
+            <Node name="iPoleSystemUI" expanded="True">
+              <Node name="LoginForm.cs" expanded="True" />
+              <Node name="MyBookingsToday.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
