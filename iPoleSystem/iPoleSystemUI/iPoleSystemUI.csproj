@@ -98,6 +98,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="AttendLog.csv" />
     <None Include="Bruger.csv" />
     <None Include="classes.csv" />
     <None Include="OpenGym.csv" />

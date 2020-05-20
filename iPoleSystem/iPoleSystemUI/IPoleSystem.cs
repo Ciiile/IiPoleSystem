@@ -34,28 +34,25 @@ namespace iPoleSystemLibrary
                 csvParser.SetDelimiters(new string[] { "," });
                 csvParser.HasFieldsEnclosedInQuotes = false;
 
-                csvParser.ReadLine();
+                //csvParser.ReadLine();
 
                 while (!csvParser.EndOfData)
                 {
-                    int i = 0,
-                        j = 0;
+                    int i = 0;
                     string[] fields = csvParser.ReadFields();
                     string id = fields[0];
                     string firstname = fields[1];
                     string lastname = fields[2];
                     string password = fields[3];
-
                     Int32.TryParse(id, out int memberId);
 
-                    int[] enrolledClasses = new int[fields.Length - 3];
+                    int[] enrolledClasses = new int[fields.Length - 4];
 
-                    for (i = 4; string.IsNullOrEmpty(fields[i]); i++)
+                    for (i = 4; i < fields.Length; i++)
                     {
                         string classID = fields[i];
                         Int32.TryParse(classID, out int enrolledClass);
-                        enrolledClasses[j] = enrolledClass;
-                        j++;
+                        enrolledClasses[i-4] = enrolledClass;
                     }
 
                     AllUsers.Add(new User(firstname, lastname, memberId, password, false, enrolledClasses));
@@ -71,36 +68,34 @@ namespace iPoleSystemLibrary
             var path = Directory.GetCurrentDirectory() + @"\classes.csv";
             using (TextFieldParser csvParser = new TextFieldParser(path))
             {
-                int i = 0,
-                    j = 0;
+                int i = 0;
                 csvParser.SetDelimiters(new string[] { ";" });
                 csvParser.HasFieldsEnclosedInQuotes = false;
                 
 
-                csvParser.ReadLine();
+                //csvParser.ReadLine();
 
                 while (!csvParser.EndOfData)
                 {
                     string[] fields = csvParser.ReadFields();
                     string classIDString = fields[0];
                     Int32.TryParse(classIDString, out int classID);
-                    string teamtitle = fields[0];
-                    string participantString = fields[1];
+                    string teamtitle = fields[1];
+                    string participantString = fields[2];
                     Int32.TryParse(participantString, out int numberofParticipants);
-                    string time = fields[2];
-                    string date = fields[3];
-                    string roomString = fields[4];
+                    string time = fields[3];
+                    string date = fields[4];
+                    string roomString = fields[5];
                     Int32.TryParse(roomString, out int room);
-                    string instructor = fields[5];
+                    string instructor = fields[6];
 
-                    int[] participantsEnrolled = new int[fields.Length - 5];
+                    int[] participantsEnrolled = new int[fields.Length - 7];
 
-                    for (i = 6; string.IsNullOrEmpty(fields[i]); i++)
+                    for (i = 7; i < fields.Length; i++)
                     {
                         string participant = fields[i];
                         Int32.TryParse(participant, out int particpantEnrolled);
-                        participantsEnrolled[j] = particpantEnrolled;
-                        j++;
+                        participantsEnrolled[i-7] = particpantEnrolled;
                     }
 
                     AllTeams.Add(new FitnessClass(classID, teamtitle, numberofParticipants, time, date, room, instructor, participantsEnrolled));
@@ -109,10 +104,10 @@ namespace iPoleSystemLibrary
         }
 
         //
-        public void CreateCheckboxes()
+        public void CreateCheckboxes(bool MyBookingsToday)
         {
             List<FitnessClass> classesToBeShown = new List<FitnessClass>();
-            CreateListOfClassesToBeShown(classesToBeShown);
+            CreateListOfClassesToBeShown(classesToBeShown, MyBookingsToday);
 
             int i = 0;
             foreach (FitnessClass fclass in classesToBeShown)
@@ -132,13 +127,21 @@ namespace iPoleSystemLibrary
         }
 
         //Vent med at skriv om den, til vi har løst exceptions
-        public List<FitnessClass> CreateListOfClassesToBeShown(List<FitnessClass> classesToBeShown)
+        public List<FitnessClass> CreateListOfClassesToBeShown(List<FitnessClass> classesToBeShown, bool MyBookingsToday)
         {
             User currentUser = FindUserFromLoginStatus();
+            DateTime dateTimeNow = DateTime.Now;
+            int dateNow = dateTimeNow.Day;
+            string dateNowString = dateNow.ToString();
             
             foreach (int temp in currentUser.EnrolledClassIDs)
             {
                 classesToBeShown.Add(FindClassFromID(temp));
+                if (MyBookingsToday && FindClassFromID(temp).Date!=dateNowString)
+                {
+                    classesToBeShown.Remove(FindClassFromID(temp));
+                }
+                
             }
 
             return classesToBeShown;
@@ -186,27 +189,31 @@ namespace iPoleSystemLibrary
             }
         }
 
+        public List<FitnessClass> FindClassFromStringList(List<string> stringList)
+        {
+            try
+            {
+                List<FitnessClass> fitnessClassList = new List<FitnessClass>();
+                foreach(string s in stringList)
+                {
+                    FitnessClass found = AllTeams.Find(t => t.Title == s);
+                    fitnessClassList.Add(found);
+                    
+                }
+                return fitnessClassList;
+            }
+            catch
+            {
+                throw new ArgumentException("Class could not be found from string list");
+            }
+        }
+
         //This method assigns the current date and time, finds all lines in OpenGym.csv
         //and deletes the lines where the date does not equal the current date.
         public void DeleteUnnecessaryStringsFromOpenGym()
         {
-
             DateTime dateAndTimeNow = DateTime.Now;
             int dateNow = dateAndTimeNow.Day;
-            //string dateNowString = dateNow.ToString();
-
-            //var file = Directory.GetCurrentDirectory() + @"\OpenGym.csv";
-            //using (TextFieldParser csvParser = new TextFieldParser(file))
-            //{
-                
-
-            //        //memberIDList.Add(memberID);
-            //        //dateTimeList.Add(dateTimeFile);
-            //}
-
-                
-
-
             List<string> lines = new List<string>();
             using(StreamReader reader=new StreamReader("OpenGym.csv"))
             {
@@ -229,13 +236,10 @@ namespace iPoleSystemLibrary
                         }
                         if(dateTimeFile.Day != dateNow)
                         {
-                            //line = string.Join(id, ",", dateTimeString);
-                            //lines.Remove(line);
                         }
                     }
                 }
             }
-
             using(StreamWriter writer=new StreamWriter("OpenGym.csv"))
             {
                 foreach(string line in lines)
@@ -243,14 +247,154 @@ namespace iPoleSystemLibrary
                     writer.WriteLine(line);
                 }
             }
+        }
+
+        //Det kan godt være at den formelle parameter skal være en anden. Husk at ændre i interface
+        public void WriteInAttendLog(List<FitnessClass> classList)
+        {
+            User currentUser = FindUserFromLoginStatus();
+            DateTime dateTimeNow = DateTime.Now;
+
+            using (StreamWriter SW = File.AppendText("AttendLog.csv"))
+            {
+                foreach(FitnessClass classAttended in classList)
+                {
+                    SW.WriteLine("Member: " + currentUser.MemberId + " attended class " + classAttended.ClassID + " at " + dateTimeNow);
+                }
+                
+            }
+        }
+
+        public void RemoveUserIDFromClassFile(FitnessClass classAttended)
+        {
+            List<string> lines = new List<string>();
+            string line;
+            User currentUser = FindUserFromLoginStatus();
+
+            var path = Directory.GetCurrentDirectory() + @"\classes.csv";
+            using (TextFieldParser csvParser = new TextFieldParser(path))
+            {
+                int i = 0;
+                csvParser.SetDelimiters(new string[] { ";" });
+                csvParser.HasFieldsEnclosedInQuotes = false;
+
+
+                //csvParser.ReadLine();
+
+                while (!csvParser.EndOfData)
+                {
+                    string[] fields = csvParser.ReadFields();
+                    string classIDString = fields[0];
+                    Int32.TryParse(classIDString, out int classID);
+                    string teamtitle = fields[1];
+                    string participantString = fields[2];
+                    Int32.TryParse(participantString, out int numberofParticipants);
+                    string time = fields[3];
+                    string date = fields[4];
+                    string roomString = fields[5];
+                    Int32.TryParse(roomString, out int room);
+                    string instructor = fields[6];
+
+                    int[] participantsEnrolled = new int[fields.Length - 7];
+                    string participantsClassesString = "";
+
+                    for (i = 7; i < fields.Length; i++)
+                    {
+                        string participant = fields[i];
+                        Int32.TryParse(participant, out int particpantEnrolled);
+
+
+                        if (currentUser.MemberId != particpantEnrolled)
+                        {
+                            participantsEnrolled[i - 7] = particpantEnrolled;
+                            participantsClassesString += ";" + particpantEnrolled;
+                        }
+                        else if (currentUser.MemberId == particpantEnrolled && classAttended.ClassID != classID)
+                        {
+                            participantsEnrolled[i - 7] = particpantEnrolled;
+                            participantsClassesString += ";" + particpantEnrolled;
+                        }
+                        else if (currentUser.MemberId == particpantEnrolled && classAttended.ClassID == classID)
+                        {
+                            participantsClassesString += "; ";
+                        }
+                    }
+                    line = string.Join("", classID, ';', teamtitle, ';', numberofParticipants, ';', time, ';', date, ';', room, ';', instructor, participantsClassesString);
+                    lines.Add(line);
+                }
+            }
+
+            using (StreamWriter SW = new StreamWriter("classes.csv"))
+            {
+                foreach (string l in lines)
+                {
+                    SW.WriteLine(l);
+                }
+            }
+        }
+
+
+        public void RemoveClassIDFromUserFile(FitnessClass classAttended)
+        {
+            List<string> lines = new List<string>();
+            string line;
+            User currentUser = FindUserFromLoginStatus();
+
+
+            var path = Directory.GetCurrentDirectory() + @"\Bruger.csv";
+            using (TextFieldParser csvParser = new TextFieldParser(path))
+            {
+                csvParser.SetDelimiters(new string[] { "," });
+                csvParser.HasFieldsEnclosedInQuotes = false;
                 
 
-                //while ((line = csvParser.ReadLine()) != null)
-                //{
-                //    lines.Add(line);
-                //}
-                //lines.RemoveAll(l => !(l.Contains(dateNowString)));
-            
+                //csvParser.ReadLine();
+
+                while (!csvParser.EndOfData)
+                {
+                    int i = 0;
+                    string[] fields = csvParser.ReadFields();
+                    string id = fields[0];
+                    string firstname = fields[1];
+                    string lastname = fields[2];
+                    string password = fields[3];
+                    Int32.TryParse(id, out int memberId);
+
+                    int[] enrolledClasses = new int[fields.Length - 4];
+                    string enrolledClassesString = "";
+
+                    for (i = 4; i < fields.Length; i++)
+                    {
+                        string classID = fields[i];
+                        Int32.TryParse(classID, out int enrolledClass);
+
+                            if (currentUser.MemberId != memberId)
+                            {
+                                enrolledClasses[i - 4] = enrolledClass;
+                                enrolledClassesString += "," + enrolledClass;
+                            }
+                            else if (currentUser.MemberId == memberId && classAttended.ClassID != enrolledClass)
+                            {
+                            enrolledClasses[i - 4] = enrolledClass;
+                            enrolledClassesString += "," + enrolledClass;
+                        }
+                            else if (currentUser.MemberId == memberId && classAttended.ClassID == enrolledClass)
+                            {
+                            enrolledClassesString += ", ";
+                            }
+                    }
+                    line = string.Join("", memberId, ',', firstname, ',', lastname, ',', password, enrolledClassesString);
+                    lines.Add(line);
+                }
+            }
+            using (StreamWriter SW = new StreamWriter("Bruger.csv"))
+            {
+                foreach (string l in lines)
+                {
+                    SW.WriteLine(l);
+                }
+            }
+
         }
     }
 }

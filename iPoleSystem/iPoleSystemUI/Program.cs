@@ -21,7 +21,6 @@ namespace iPoleSystemUI
             PoleSystem.DeleteUnnecessaryStringsFromOpenGym();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //system.CreateCheckboxes(); //TESTER
             Application.Run(new LoginForm(PoleSystem));
             
 

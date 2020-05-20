@@ -15,18 +15,17 @@ namespace iPoleSystemUI
     public partial class MyBookingsToday : Form
     {
         private IIPoleSystem PoleSystem { get; set; }
-        //public IIPoleSystem poleSystem { get; set; }
         public MyBookingsToday(IIPoleSystem poleSystem)
         {
             InitializeComponent();
 
-            //Isystem.CreateCheckboxes();
-
             PoleSystem = poleSystem;
 
+            bool MyBookingsToday = true;
+            PoleSystem.CreateCheckboxes(MyBookingsToday);
         }
 
-        //This method closes the form, assigns the current user' login status to false
+        //This method closes the form, assigns the current user's login status to false
         //and calls the login form.
         private void LogOutButton_Click(object sender, EventArgs e)
         {
@@ -120,13 +119,24 @@ namespace iPoleSystemUI
         private void AttendButton_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
+            List<string> classesAttended = new List<string>();
+            List<FitnessClass> fitnessClassList = new List<FitnessClass>();
             foreach (CheckBox cb in IPoleSystem.CheckBoxes)
             {
                 if (cb.CheckState == CheckState.Checked)
                 {
                     sb.AppendLine(cb.Text);
+                    classesAttended.Add(cb.Text);
                 }
             }
+            fitnessClassList = PoleSystem.FindClassFromStringList(classesAttended);
+            PoleSystem.WriteInAttendLog(fitnessClassList);
+            foreach (FitnessClass fitnessClass in fitnessClassList)
+            {
+                PoleSystem.RemoveUserIDFromClassFile(fitnessClass);
+                PoleSystem.RemoveClassIDFromUserFile(fitnessClass);
+            }
+
             Do_Checked();
             MessageBox.Show("You are now attending the classes:\n" + sb);
         }

@@ -19,7 +19,9 @@ namespace iPoleSystemUI
         {
             InitializeComponent();
 
-            //Isystem.CreateCheckboxes();
+            PoleSystem = poleSystem;
+            bool MyBookingsToday = false;
+            PoleSystem.CreateCheckboxes(MyBookingsToday);
         }
 
         private void MyFutureBookings_Load(object sender, EventArgs e)
@@ -88,15 +90,27 @@ namespace iPoleSystemUI
         private void AttendButton_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
+            List<string> classesAttended = new List<string>();
+            List<FitnessClass> fitnessClassList = new List<FitnessClass>();
             foreach (CheckBox cb in IPoleSystem.CheckBoxes)
             {
                 if (cb.CheckState == CheckState.Checked)
                 {
                     sb.AppendLine(cb.Text);
+                    classesAttended.Add(cb.Text);
                 }
             }
+            fitnessClassList = PoleSystem.FindClassFromStringList(classesAttended);
+            PoleSystem.WriteInAttendLog(fitnessClassList);
+            foreach (FitnessClass fitnessClass in fitnessClassList)
+            {
+                PoleSystem.RemoveUserIDFromClassFile(fitnessClass);
+                PoleSystem.RemoveClassIDFromUserFile(fitnessClass);
+            }
+
             Do_Checked();
             MessageBox.Show("You are now attending the classes:\n" + sb);
+            
         }
     }
 }
