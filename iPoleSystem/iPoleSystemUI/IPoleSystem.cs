@@ -126,7 +126,9 @@ namespace iPoleSystemLibrary
             }
         }
 
-        //Vent med at skriv om den, til vi har løst exceptions
+        //This method creates a list of classes to be shown on MyBookingsToday and MyFutureBookings
+        //based on whether the specific list is to be shown on MyBookingsToday or MyFutureBookings and
+        //if it the class is on the current day or not.
         public List<FitnessClass> CreateListOfClassesToBeShown(List<FitnessClass> classesToBeShown, bool MyBookingsToday)
         {
             User currentUser = FindUserFromLoginStatus();
