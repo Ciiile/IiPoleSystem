@@ -47,12 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookANewClass.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BookANewClass.Designer.cs">
-      <DependentUpon>BookANewClass.cs</DependentUpon>
-    </Compile>
     <Compile Include="FitnessClass.cs" />
     <Compile Include="IIPoleSystem.cs" />
     <Compile Include="Inactivity\InactivityMessageBox.cs">
@@ -90,9 +84,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
-    <EmbeddedResource Include="BookANewClass.resx">
-      <DependentUpon>BookANewClass.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Inactivity\InactivityMessageBox.resx">
       <DependentUpon>InactivityMessageBox.cs</DependentUpon>
     </EmbeddedResource>
