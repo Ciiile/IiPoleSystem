@@ -38,8 +38,8 @@ namespace iPoleSystemUI
             Login();
         }
 
-        //This method checks if the inputs are correct and logs the user in,
-        //if that is the case. It also assigns the current users login status
+        // This method checks if the inputs are correct and logs the user in,
+        // if that is the case. It also assigns the current users login status
         // to true.
         private void Login()
         {

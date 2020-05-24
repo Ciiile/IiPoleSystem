@@ -27,10 +27,9 @@ namespace iPoleSystemLibrary
             EnrolledClassIDs = enrolledClassIDs;
         }
 
-        //This method checks if the object is of the type User
+        // This method checks if the object is of the type User.
         public int CompareTo(object obj)
         {
-
             if (obj == null)
             {
                 return 1;

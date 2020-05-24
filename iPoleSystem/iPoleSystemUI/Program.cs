@@ -24,8 +24,6 @@ namespace iPoleSystemUI
             Application.AddMessageFilter(new MessageFilter());
             InactivityTimer inactivity = new InactivityTimer(PoleSystem);
             Application.Run(new LoginForm(PoleSystem));
-            
-
         }
     }
 }

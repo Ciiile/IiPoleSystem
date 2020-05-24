@@ -13,7 +13,7 @@ namespace iPoleSystemLibrary
 {
     public class IPoleSystem : IIPoleSystem
     {
-        //Lists are begin created for all users, all teams and checkboxes
+        // Lists are begin created for all users, all teams and checkboxes.
         public static List<User> AllUsers = new List<User>();
         public static List<FitnessClass> AllTeams = new List<FitnessClass>();
         public static List<CheckBox> CheckBoxes = new List<CheckBox>();
@@ -22,10 +22,10 @@ namespace iPoleSystemLibrary
         {
         }
 
-        //This method adds users to the user list. First, a path is created to the
-        //.csv file containing the users. Secondly, it seperates the strings and then 
-        //it assigns the different strings to appropriate values and converts them if needed.
-        //Lastly, it adds all the users and their information to the user list.
+        // This method adds users to the user list. First, a path is created to the
+        // .csv file containing the users. Secondly, it seperates the strings and then 
+        // it assigns the different strings to appropriate values and converts them if needed.
+        // Lastly, it adds all the users and their information to the user list.
         public void CreateUserList()
         {
             var path = Directory.GetCurrentDirectory() + @"\Bruger.csv";
@@ -33,8 +33,6 @@ namespace iPoleSystemLibrary
             {
                 csvParser.SetDelimiters(new string[] { "," });
                 csvParser.HasFieldsEnclosedInQuotes = false;
-
-                //csvParser.ReadLine();
 
                 while (!csvParser.EndOfData)
                 {
@@ -54,15 +52,13 @@ namespace iPoleSystemLibrary
                         Int32.TryParse(classID, out int enrolledClass);
                         enrolledClasses[i-4] = enrolledClass;
                     }
-
                     AllUsers.Add(new User(firstname, lastname, memberId, password, false, enrolledClasses));
-
                 }
             }
         }
 
-        //This method does the same as the previous method, except it does it for
-        //the classes which are in classes.csv
+        // This method does the same as the previous method, except it does it for
+        // the classes which are in classes.csv.
         public void CreateTeamList()
         {
             var path = Directory.GetCurrentDirectory() + @"\classes.csv";
@@ -71,9 +67,6 @@ namespace iPoleSystemLibrary
                 int i = 0;
                 csvParser.SetDelimiters(new string[] { ";" });
                 csvParser.HasFieldsEnclosedInQuotes = false;
-                
-
-                //csvParser.ReadLine();
 
                 while (!csvParser.EndOfData)
                 {
@@ -97,13 +90,12 @@ namespace iPoleSystemLibrary
                         Int32.TryParse(participant, out int particpantEnrolled);
                         participantsEnrolled[i-7] = particpantEnrolled;
                     }
-
                     AllTeams.Add(new FitnessClass(classID, teamtitle, numberofParticipants, time, date, room, instructor, participantsEnrolled));
                 }
             }
         }
 
-        //
+        // This method creates the checkboxes the users have to use in order to choose the different classes.
         public void CreateCheckboxes(bool MyBookingsToday)
         {
             List<FitnessClass> classesToBeShown = new List<FitnessClass>();
@@ -126,9 +118,9 @@ namespace iPoleSystemLibrary
             }
         }
 
-        //This method creates a list of classes to be shown on MyBookingsToday and MyFutureBookings
-        //based on whether the specific list is to be shown on MyBookingsToday or MyFutureBookings and
-        //if it the class is on the current day or not.
+        // This method creates a list of classes to be shown on MyBookingsToday and MyFutureBookings
+        // based on whether the specific list is to be shown on MyBookingsToday or MyFutureBookings and
+        // if it the class is on the current day or not.
         public List<FitnessClass> CreateListOfClassesToBeShown(List<FitnessClass> classesToBeShown, bool MyBookingsToday)
         {
             User currentUser = FindUserFromLoginStatus();
@@ -143,13 +135,11 @@ namespace iPoleSystemLibrary
                 {
                     classesToBeShown.Remove(FindClassFromID(temp));
                 }
-
             }
-
             return classesToBeShown;
         }
 
-        //This method finds and returns the user whose member ID equals the desired ID
+        // This method finds and returns the user whose member ID equals the desired ID.
         public User FindUserFromID(int userID)
         {
             try
@@ -163,7 +153,7 @@ namespace iPoleSystemLibrary
             }
         }
 
-        //This method finds and return the user whose LoginStatus is true.
+        // This method finds and return the user whose LoginStatus is true.
         public User FindUserFromLoginStatus()
         {
             try
@@ -177,7 +167,7 @@ namespace iPoleSystemLibrary
             }
         }
 
-        //This method finds and returns the class with the desired ID
+        // This method finds and returns the class with the desired ID.
         public FitnessClass FindClassFromID(int classID)
         {
             try
@@ -191,6 +181,7 @@ namespace iPoleSystemLibrary
             }
         }
 
+        // This method turns a string list into at FitnessClass list.
         public List<FitnessClass> FindClassFromStringList(List<string> stringList)
         {
             try
@@ -200,7 +191,6 @@ namespace iPoleSystemLibrary
                 {
                     FitnessClass found = AllTeams.Find(t => t.Title == s);
                     fitnessClassList.Add(found);
-                    
                 }
                 return fitnessClassList;
             }
@@ -210,8 +200,8 @@ namespace iPoleSystemLibrary
             }
         }
 
-        //This method assigns the current date and time, finds all lines in OpenGym.csv
-        //and deletes the lines where the date does not equal the current date.
+        // This method assigns the current date and time, finds all lines in OpenGym.csv
+        // and deletes the lines where the date does not equal the current date.
         public void DeleteUnnecessaryStringsFromOpenGym()
         {
             DateTime dateAndTimeNow = DateTime.Now;
@@ -251,7 +241,8 @@ namespace iPoleSystemLibrary
             }
         }
 
-        //Det kan godt være at den formelle parameter skal være en anden. Husk at ændre i interface
+        // This method writes in AttendLog.csv the member ID of who attended a class, 
+        // the class ID of the class attended and when it was attended.
         public void WriteInAttendLog(List<FitnessClass> classList)
         {
             User currentUser = FindUserFromLoginStatus();
@@ -263,10 +254,11 @@ namespace iPoleSystemLibrary
                 {
                     SW.WriteLine("Member: " + currentUser.MemberId + " attended class " + classAttended.ClassID + " at " + dateTimeNow);
                 }
-                
             }
         }
 
+        // This method removes the user ID of the user who attended a class,
+        // from the classes.csv file.
         public void RemoveUserIDFromClassFile(FitnessClass classAttended)
         {
             List<string> lines = new List<string>();
@@ -279,9 +271,6 @@ namespace iPoleSystemLibrary
                 int i = 0;
                 csvParser.SetDelimiters(new string[] { ";" });
                 csvParser.HasFieldsEnclosedInQuotes = false;
-
-
-                //csvParser.ReadLine();
 
                 while (!csvParser.EndOfData)
                 {
@@ -304,7 +293,6 @@ namespace iPoleSystemLibrary
                     {
                         string participant = fields[i];
                         Int32.TryParse(participant, out int particpantEnrolled);
-
 
                         if (currentUser.MemberId != particpantEnrolled)
                         {
@@ -335,22 +323,19 @@ namespace iPoleSystemLibrary
             }
         }
 
-
+        // This method removes the class ID of the class a user attended,
+        // from the Bruger.csv file.
         public void RemoveClassIDFromUserFile(FitnessClass classAttended)
         {
             List<string> lines = new List<string>();
             string line;
             User currentUser = FindUserFromLoginStatus();
 
-
             var path = Directory.GetCurrentDirectory() + @"\Bruger.csv";
             using (TextFieldParser csvParser = new TextFieldParser(path))
             {
                 csvParser.SetDelimiters(new string[] { "," });
                 csvParser.HasFieldsEnclosedInQuotes = false;
-                
-
-                //csvParser.ReadLine();
 
                 while (!csvParser.EndOfData)
                 {
@@ -396,7 +381,6 @@ namespace iPoleSystemLibrary
                     SW.WriteLine(l);
                 }
             }
-
         }
     }
 }

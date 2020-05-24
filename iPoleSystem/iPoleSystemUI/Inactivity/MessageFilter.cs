@@ -5,8 +5,8 @@ using System.Windows.Forms;
 
 public class MessageFilter : IMessageFilter
 {
-    //Following are the Windows API hex values. You can find more at http://faisal.azmza.com/post/2009/01/Values-of-Windows-API.aspx
-    // Here we are only interested in only Keyboard and Mouse activities
+    // Following are the Windows API hex values. You can find more at http://faisal.azmza.com/post/2009/01/Values-of-Windows-API.aspx
+    // Here we are only interested in only Keyboard and Mouse activities.
     private int WM_LBUTTONDOWN = 0x0201;
     private int WM_KEYDOWN = 0x0100;
     private int WM_RBUTTONDOWN = 0x0204;

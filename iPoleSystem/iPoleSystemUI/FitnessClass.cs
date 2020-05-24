@@ -19,7 +19,7 @@ namespace iPoleSystemLibrary
         public string Instructor { get; set; }
         public int[] EnrolledUserIDs { get; set; }
 
-        //The constructer for FitnessClass
+        // The constructer for FitnessClass.
         public FitnessClass(int classID, string title, int numberOfParticipants, string time, string date, int room, string instructor, int[] enrolledUserIDs)
         {
             ClassID = classID;

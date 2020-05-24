@@ -42,10 +42,9 @@ namespace iPoleSystemUI
 
         }
 
-        //This method checks or unchecks all the checkboxes, based on the state of ChooseAllCheckbox
+        // This method checks or unchecks all the checkboxes, based on the state of ChooseAllCheckbox.
         private void Do_Checked()
         {
-
             if (ChooseAllCheckbox.CheckState == CheckState.Checked)
             {
                 foreach (CheckBox cb in IPoleSystem.CheckBoxes)
@@ -62,21 +61,21 @@ namespace iPoleSystemUI
             }
         }
 
-        //This method closes the form, assigns the current user' login status to false
-        //and calls the login form.
+        // This method closes the form, assigns the current user' login status to false
+        // and calls the login form.
         private void LogOutButton_Click(object sender, EventArgs e)
         {
             Logout();
         }
 
-        //Method that hides the current form and then shows the form MyBookingsToday which 
-        //is the previous page
+        // Method that hides the current form and then shows the form MyBookingsToday which 
+        // is the previous page.
         private void ReturnButton_Click(object sender, EventArgs e)
         {
             PreviousPage();
         }
 
-        //This method checks if the checkbox for attending is checked and shows a message box.
+        // This method checks if the checkbox for attending is checked and shows a message box.
         private void AttendButton_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
@@ -97,11 +96,10 @@ namespace iPoleSystemUI
                 PoleSystem.RemoveUserIDFromClassFile(fitnessClass);
                 PoleSystem.RemoveClassIDFromUserFile(fitnessClass);
             }
-
             Do_Checked();
             MessageBox.Show("You are now attending the classes:\n" + sb);
-            
         }
+
         private void Logout()
         {
             LoginForm loginPage = new LoginForm(PoleSystem);
