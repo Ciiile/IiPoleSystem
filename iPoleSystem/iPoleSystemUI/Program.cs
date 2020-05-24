@@ -21,6 +21,8 @@ namespace iPoleSystemUI
             PoleSystem.DeleteUnnecessaryStringsFromOpenGym();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.AddMessageFilter(new MessageFilter());
+            InactivityTimer inactivity = new InactivityTimer(PoleSystem);
             Application.Run(new LoginForm(PoleSystem));
             
 

@@ -58,7 +58,6 @@
             this.Title.Size = new System.Drawing.Size(578, 69);
             this.Title.TabIndex = 20;
             this.Title.Text = "My Future Bookings";
-            this.Title.Click += new System.EventHandler(this.Title_Click);
             // 
             // BookAClassButton
             // 

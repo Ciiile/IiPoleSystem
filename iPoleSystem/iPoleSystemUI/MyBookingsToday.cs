@@ -25,27 +25,12 @@ namespace iPoleSystemUI
             PoleSystem.CreateCheckboxes(MyBookingsToday);
         }
 
-        //This method closes the form, assigns the current user's login status to false
-        //and calls the login form.
-        private void LogOutButton_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-
-            LoginForm login = new LoginForm(PoleSystem);
-            login.Show();
-        }
-
         private void MyBookingsToday_Load(object sender, EventArgs e)
         {
             foreach (CheckBox ck in IPoleSystem.CheckBoxes)
             {
                 Controls.Add(ck);
             }
-        }
-
-        private void Title_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void AttendOpenGymButton_Click(object sender, EventArgs e)
@@ -70,6 +55,14 @@ namespace iPoleSystemUI
         {
             MyFutureBookings();
         }
+
+        //This method closes the form, assigns the current user's login status to false
+        //and calls the login form.
+        private void LogOutButton_Click(object sender, EventArgs e)
+        {
+            Logout();
+        }
+
 
         private void ChooseAllCheckbox_CheckedChanged(object sender, EventArgs e)
         {
@@ -96,25 +89,6 @@ namespace iPoleSystemUI
             }
         }
 
-        //This method hides the current form and calls the MyFutureBookings form.
-        private void MyFutureBookings()
-        {
-            this.Hide();
-
-            MyFutureBookings nextPage = new MyFutureBookings(PoleSystem);
-            nextPage.Show();
-        }
-
-        private void ReturnButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         //This method checks if the checkbox for attending is checked and shows a message box.
         private void AttendButton_Click(object sender, EventArgs e)
         {
@@ -139,6 +113,21 @@ namespace iPoleSystemUI
 
             Do_Checked();
             MessageBox.Show("You are now attending the classes:\n" + sb);
+        }
+        //This method hides the current form and calls the MyFutureBookings form.
+        private void MyFutureBookings()
+        {
+            MyFutureBookings futureBookings = new MyFutureBookings(PoleSystem);
+            this.Hide();
+            futureBookings.ShowDialog();
+            this.Close();
+        }
+        private void Logout()
+        {
+            LoginForm loginPage = new LoginForm(PoleSystem);
+            this.Hide();
+            loginPage.ShowDialog();
+            this.Close();
         }
     }
 }

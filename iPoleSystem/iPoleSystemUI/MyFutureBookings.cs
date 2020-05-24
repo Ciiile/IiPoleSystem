@@ -32,11 +32,6 @@ namespace iPoleSystemUI
             }
         }
 
-        private void Title_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ChooseAllCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Do_Checked();
@@ -71,19 +66,14 @@ namespace iPoleSystemUI
         //and calls the login form.
         private void LogOutButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-
-            LoginForm login = new LoginForm(PoleSystem);
-            login.Show();
+            Logout();
         }
 
         //Method that hides the current form and then shows the form MyBookingsToday which 
         //is the previous page
         private void ReturnButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            MyBookingsToday previousPage = new MyBookingsToday(PoleSystem);
-            previousPage.Show();
+            PreviousPage();
         }
 
         //This method checks if the checkbox for attending is checked and shows a message box.
@@ -111,6 +101,20 @@ namespace iPoleSystemUI
             Do_Checked();
             MessageBox.Show("You are now attending the classes:\n" + sb);
             
+        }
+        private void Logout()
+        {
+            LoginForm loginPage = new LoginForm(PoleSystem);
+            this.Hide();
+            loginPage.ShowDialog();
+            this.Close();
+        }
+        private void PreviousPage()
+        {
+            MyBookingsToday previousPage = new MyBookingsToday(PoleSystem);
+            this.Hide();
+            previousPage.ShowDialog();
+            this.Close();
         }
     }
 }

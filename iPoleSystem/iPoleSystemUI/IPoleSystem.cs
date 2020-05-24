@@ -139,11 +139,11 @@ namespace iPoleSystemLibrary
             foreach (int temp in currentUser.EnrolledClassIDs)
             {
                 classesToBeShown.Add(FindClassFromID(temp));
-                if (MyBookingsToday && FindClassFromID(temp).Date!=dateNowString)
+                if (MyBookingsToday && (FindClassFromID(temp).Date != dateNowString))
                 {
                     classesToBeShown.Remove(FindClassFromID(temp));
                 }
-                
+
             }
 
             return classesToBeShown;
@@ -318,7 +318,7 @@ namespace iPoleSystemLibrary
                         }
                         else if (currentUser.MemberId == particpantEnrolled && classAttended.ClassID == classID)
                         {
-                            participantsClassesString += "; ";
+                            participantsClassesString += "";
                         }
                     }
                     line = string.Join("", classID, ';', teamtitle, ';', numberofParticipants, ';', time, ';', date, ';', room, ';', instructor, participantsClassesString);
@@ -382,7 +382,7 @@ namespace iPoleSystemLibrary
                         }
                             else if (currentUser.MemberId == memberId && classAttended.ClassID == enrolledClass)
                             {
-                            enrolledClassesString += ", ";
+                            enrolledClassesString += "";
                             }
                     }
                     line = string.Join("", memberId, ',', firstname, ',', lastname, ',', password, enrolledClassesString);

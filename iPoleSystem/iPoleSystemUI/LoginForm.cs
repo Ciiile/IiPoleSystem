@@ -60,13 +60,12 @@ namespace iPoleSystemUI
                 {
                     if (id == u.MemberId && password == u.Password)
                     {
-                        this.Hide();
-                        
                         u.LoginStatus = true;
                         LoginStatus = true;
-
                         MyBookingsToday nextPage = new MyBookingsToday(PoleSystem);
-                        nextPage.Show();
+                        this.Hide();
+                        nextPage.ShowDialog();
+                        this.Close();
                     }
                     else
                     {
@@ -81,36 +80,12 @@ namespace iPoleSystemUI
             }
         }
 
-        private void Label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextMemberID_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void PasswordTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
             {
                 Login();
             }
-        }
-
-        private void TextPassword_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void PasswordTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MemberIDTextBox_TextChanged(object sender, EventArgs e)
-        {
         }
     }
 }

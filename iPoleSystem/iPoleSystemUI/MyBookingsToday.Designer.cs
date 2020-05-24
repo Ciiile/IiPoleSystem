@@ -49,7 +49,6 @@
             this.Title.Size = new System.Drawing.Size(463, 55);
             this.Title.TabIndex = 13;
             this.Title.Text = "My Bookings Today";
-            this.Title.Click += new System.EventHandler(this.Title_Click);
             // 
             // panel1
             // 
@@ -60,7 +59,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(446, 43);
             this.panel1.TabIndex = 14;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // ChooseAllCheckbox
             // 
@@ -132,6 +130,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1009, 498);
             this.Controls.Add(this.buttonLogOut);
             this.Controls.Add(this.button4);
